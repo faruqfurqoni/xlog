@@ -8,14 +8,14 @@ plugin architecture and flexible log system for golang
 Installation
 ================
 ~~~
-go get github.com/xfxdev/xlog
+go get github.com/faruqfurqoni/xlog
 ~~~
 
 Usage
 ================
 ~~~
 import (
-    "github.com/xfxdev/xlog"
+    "github.com/faruqfurqoni/xlog"
 )
 
 strLogLevel := "INFO"  // also maybe read from config.

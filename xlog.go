@@ -84,7 +84,8 @@ func New(lev Level, lis Listener, layout string) *Logger {
 	return logger
 }
 
-var stdLogger = New(InfoLevel, os.Stderr, DefaultLoggerLayout)
+var stdLogger = New(InfoLevel, os.Stdout, DefaultLoggerLayout)
+var stdErrLogger = New(InfoLevel, os.Stderr, DefaultLoggerLayout)
 
 func (l *Logger) Close() error {
 	l.mu.Lock()
@@ -348,37 +349,37 @@ func Close() error {
 // Panic is equivalent to Logger.Panic.
 func Panic(v ...interface{}) {
 	s := fmt.Sprint(v...)
-	stdLogger.Log(PanicLevel, s)
+	stdErrLogger.Log(PanicLevel, s)
 	panic(s)
 }
 
 // Panicf is equivalent to Logger.Panicf.
 func Panicf(format string, v ...interface{}) {
 	s := fmt.Sprintf(format, v...)
-	stdLogger.Log(PanicLevel, s)
+	stdErrLogger.Log(PanicLevel, s)
 	panic(s)
 }
 
 // Fatal is equivalent to Logger.Fatal.
 func Fatal(v ...interface{}) {
-	stdLogger.Log(FatalLevel, fmt.Sprint(v...))
+	stdErrLogger.Log(FatalLevel, fmt.Sprint(v...))
 	os.Exit(1)
 }
 
 // Fatalf is equivalent to Logger.Fatalf.
 func Fatalf(format string, v ...interface{}) {
-	stdLogger.Log(FatalLevel, fmt.Sprintf(format, v...))
+	stdErrLogger.Log(FatalLevel, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
 // Error is equivalent to Logger.Error.
 func Error(v ...interface{}) {
-	stdLogger.Log(ErrorLevel, fmt.Sprint(v...))
+	stdErrLogger.Log(ErrorLevel, fmt.Sprint(v...))
 }
 
 // Errorf is equivalent to Logger.Errorf.
 func Errorf(format string, v ...interface{}) {
-	stdLogger.Log(ErrorLevel, fmt.Sprintf(format, v...))
+	stdErrLogger.Log(ErrorLevel, fmt.Sprintf(format, v...))
 }
 
 // Warn is equivalent to Logger.Warn.
